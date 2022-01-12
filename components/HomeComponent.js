@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements'
+import { Card } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
 import { PROMOTIONS } from '../shared/promotions';
 import { PARTNERS } from '../shared/partners';
@@ -18,16 +18,17 @@ function RenderItem({item}) {
             </Card>
         );
     }
-    return <View />
+    return <View />;
 }
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             campsites: CAMPSITES,
             promotions: PROMOTIONS,
-            partners: PARTNERS,
+            partners: PARTNERS
         };
     }
 
@@ -38,15 +39,15 @@ class Home extends Component {
     render() {
         return (
             <ScrollView>
-            <RenderItem
-                item={this.state.campsites.filter(campsite => campsite.featured)[0]}
-            />
-            <RenderItem
-                item={this.state.promotions.filter(promotion => promotion.featured)[0]}
-            />
-            <RenderItem
-                item={this.state.partners.filter(partner => partner.featured)[0]}
-            />
+                <RenderItem 
+                    item={this.state.campsites.filter(campsite => campsite.featured)[0]}
+                />
+                <RenderItem 
+                    item={this.state.promotions.filter(promotion => promotion.featured)[0]}
+                />
+                <RenderItem 
+                    item={this.state.partners.filter(partner => partner.featured)[0]}
+                />
             </ScrollView>
         );
     }
