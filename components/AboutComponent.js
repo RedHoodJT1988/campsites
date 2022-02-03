@@ -44,8 +44,8 @@ class About extends Component {
                     <Mission />
                     <Card
                         title='Community Partners'>
-                            <Loading />
-                        </Card>
+                        <Loading />
+                    </Card>
                 </ScrollView>
             );
         }
@@ -55,12 +55,11 @@ class About extends Component {
                     <Mission />
                     <Card
                         title='Community Partners'>
-                            <Text>{this.props.partners.errMess}</Text>
-                        </Card>
+                        <Text>{this.props.partners.errMess}</Text>
+                    </Card>
                 </ScrollView>
             );
         }
-
         return (
             <ScrollView>
                 <Mission />
