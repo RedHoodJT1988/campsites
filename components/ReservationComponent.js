@@ -14,8 +14,7 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: new Date(),
-            showCalendar: false,
-            showModal: false
+            showCalendar: false
         };
     }
 
@@ -27,22 +26,21 @@ class Reservation extends Component {
         console.log(JSON.stringify(this.state));
         const message = `Number of Campers: ${this.state.campers}
                         \nHike-In? ${this.state.hikeIn}
-                        \nDate: ${this.state.date.toLocaleDateString('en-US')}`
-        
+                        \nDate: ${this.state.date.toLocaleDateString('en-US')}`;
         Alert.alert(
             'Begin Search?',
             message,
             [
                 {
-                    text: 'Cancel',
+                    text: 'Cancel', 
                     onPress: () => {
                         console.log('Reservation Search Canceled');
                         this.resetForm();
-                    },
+                    }, 
                     style: 'cancel'
                 },
                 {
-                    text: 'OK',
+                    text: 'OK', 
                     onPress: () => {
                         this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
                         this.resetForm();
@@ -50,7 +48,7 @@ class Reservation extends Component {
                 }
             ],
             { cancelable: false }
-        )
+        );
     }
 
     resetForm() {
@@ -58,8 +56,7 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: new Date(),
-            showCalendar: false,
-            showModal: false
+            showCalendar: false
         });
     }
 
@@ -79,6 +76,7 @@ class Reservation extends Component {
                 trigger: null
             });
         }
+
         let permissions = await Notifications.getPermissionsAsync();
         if (!permissions.granted) {
             permissions = await Notifications.requestPermissionsAsync();
@@ -91,7 +89,11 @@ class Reservation extends Component {
     render() {
         return (
             <ScrollView>
-                <Animatable.View animation="zoomIn" duration={2000} delay={1000}>
+                <Animatable.View
+                    animation='zoomIn'
+                    duration={2000}
+                    delay={1000}
+                >
                     <View style={styles.formRow}>
                         <Text style={styles.formLabel}>Number of Campers</Text>
                         <Picker
@@ -133,7 +135,7 @@ class Reservation extends Component {
                             mode={'date'}
                             display='default'
                             onChange={(event, selectedDate) => {
-                                selectedDate && this.setState({date: selectedDate, showCalendar: false});
+                                selectedDate && this.setState({date: selectedDate, showCalendar: false})
                             }}
                             style={styles.formItem}
                         />

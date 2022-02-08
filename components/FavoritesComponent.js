@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { SwipeRow } from 'react-native-swipe-list-view';
-import { deleteFavorite } from '../redux/ActionCreators';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { deleteFavorite } from '../redux/ActionCreators';
 import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
@@ -21,6 +21,7 @@ const mapDispatchToProps = {
 };
 
 class Favorites extends Component {
+
     static navigationOptions = {
         title: 'My Favorites'
     }
@@ -28,10 +29,11 @@ class Favorites extends Component {
     render() {
         const { navigate } = this.props.navigation;
         const renderFavoriteItem = ({item}) => {
+
             return (
                 <SwipeRow rightOpenValue={-100} style={styles.swipeRow}>
                     <View style={styles.deleteView}>
-                    <TouchableOpacity
+                        <TouchableOpacity
                             style={styles.deleteTouchable}
                             onPress={() =>
                                 Alert.alert(
@@ -54,10 +56,9 @@ class Favorites extends Component {
                                 )
                             }
                         >
-                        <Text style={styles.deleteText}>Delete</Text>
+                            <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
-
                     <View>
                         <ListItem
                             title={item.name}
@@ -71,7 +72,7 @@ class Favorites extends Component {
         };
 
         if (this.props.campsites.isLoading) {
-            return <Loading />
+            return <Loading />;
         }
         if (this.props.campsites.errMess) {
             return (
@@ -87,7 +88,7 @@ class Favorites extends Component {
                         campsite => this.props.favorites.includes(campsite.id)
                     )}
                     renderItem={renderFavoriteItem}
-                    keyExtractor={item =>item.id.toString()}
+                    keyExtractor={item => item.id.toString()}
                 />
             </Animatable.View>
         );

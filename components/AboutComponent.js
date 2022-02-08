@@ -72,7 +72,7 @@ class About extends Component {
                         <FlatList
                             data={this.props.partners.partners}
                             renderItem={renderPartner}
-                            keyExtractor={item => item.id.toString()}
+                            keyExtractor={item=>item.id.toString()}
                         />
                     </Card>
                 </Animatable.View>

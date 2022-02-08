@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList,
-    Modal, Button, StyleSheet, Alert, PanResponder } from 'react-native';
+    Modal, Button, StyleSheet,
+    Alert, PanResponder } from 'react-native';
 import { Card, Icon, Input, Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from '../redux/ActionCreators';
 import * as Animatable from 'react-native-animatable';
-
 
 const mapStateToProps = state => {
     return {
@@ -29,11 +29,12 @@ function RenderCampsite(props) {
 
     const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
     const recognizeComment = ({dx}) => (dx > 200) ? true : false;
-
+    
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderGrant: () => {
-            view.current.rubberBand(1000)
+            view.current
+                .rubberBand(1000)
                 .then(endState => console.log(endState.finished ? 'finished' : 'canceled'));
         },
         onPanResponderEnd: (e, gestureState) => {
@@ -50,13 +51,15 @@ function RenderCampsite(props) {
                         },
                         {
                             text: 'OK',
-                            onPress: () => props.favorite ?
-                                console.log('Already set as a favorite') : props.markFavorite()
+                            onPress: () => 
+                                props.favorite
+                                    ? console.log('Already set as a favorite')
+                                    : props.markFavorite()
                         }
                     ],
                     { cancelable: false }
                 );
-            } else if (recognizeDrag(gestureState)) {
+            } else if (recognizeComment(gestureState)) {
                 props.onShowModal();
             }
             return true;
@@ -65,9 +68,9 @@ function RenderCampsite(props) {
 
     if (campsite) {
         return (
-            <Animatable.View 
-                animation='fadeInDown' 
-                duration={2000} 
+            <Animatable.View
+                animation='fadeInDown'
+                duration={2000}
                 delay={1000}
                 ref={view}
                 {...panResponder.panHandlers}
@@ -92,7 +95,7 @@ function RenderCampsite(props) {
                                     : props.markFavorite()
                             }
                         />
-                    <Icon
+                        <Icon
                             name={'pencil'}
                             type='font-awesome'
                             color='#5637DD'
@@ -112,33 +115,33 @@ function RenderComments({comments}) {
 
     const renderCommentItem = ({item}) => {
         return (
-            <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
-                <View style={{margin: 10}}>
-                    <Text style={{fontSize: 14}}>
-                        {item.text}
-                    </Text>
-                    <Rating 
-                        startingValue={item.rating}
-                        imageSize={10}
-                        readonly
-                        style={{alignItems: 'flex-start', paddingVertical: '5%'}}
-                    />
-                    <Text style={{fontSize: 12}}>
-                        {`-- ${item.author}, ${item.date}`}
-                    </Text>
-                </View>
-            </Animatable.View>
+            <View style={{margin: 10}}>
+                <Text style={{fontSize: 14}}>
+                    {item.text}
+                </Text>
+                <Rating 
+                    startingValue={item.rating}
+                    imageSize={10}
+                    readonly
+                    style={{alignItems: 'flex-start', paddingVertical: '5%'}}
+                />
+                <Text style={{fontSize: 12}}>
+                    {`-- ${item.author}, ${item.date}`}
+                </Text>
+            </View>
         );
     };
 
     return (
-        <Card title='Comments'>
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}
-            />
-        </Card>
+        <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+            <Card title='Comments'>
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}
+                />
+            </Card>
+        </Animatable.View>
     );
 }
 

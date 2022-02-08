@@ -20,13 +20,12 @@ function RenderItem(props) {
         return <Loading />;
     }
     if (props.errMess) {
-        return(
+        return (
             <View>
                 <Text>{props.errMess}</Text>
             </View>
         );
     }
-
     if (item) {
         return (
             <Card
@@ -43,6 +42,7 @@ function RenderItem(props) {
 }
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -79,13 +79,13 @@ class Home extends Component {
                 />
                 <RenderItem
                     item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
-                    isLoading={this.props.campsites.isLoading}
-                    errMess={this.props.campsites.errMess}
+                    isLoading={this.props.promotions.isLoading}
+                    errMess={this.props.promotions.errMess}
                 />
                 <RenderItem
                     item={this.props.partners.partners.filter(partner => partner.featured)[0]}
-                    isLoading={this.props.campsites.isLoading}
-                    errMess={this.props.campsites.errMess}
+                    isLoading={this.props.partners.isLoading}
+                    errMess={this.props.partners.errMess}
                 />
             </Animated.ScrollView>
         );
